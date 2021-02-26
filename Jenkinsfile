@@ -11,7 +11,6 @@ pipeline {
 	}
 
 	stages {
-
 		stage("Test: baseline (jdk8)") {
 			agent {
 				docker {
@@ -140,7 +139,7 @@ pipeline {
 					}
 
 					if (RELEASE_TYPE == 'release') {
-						sh "PROFILE=distribute,central USERNAME=${SONATYPE_USR} PASSWORD=${SONATYPE_PSW} ci/build-and-deploy-to-maven-central.sh ${PROJECT_VERSION}"
+						sh "PROFILE=distribute,central ci/build-and-deploy-to-maven-central.sh ${PROJECT_VERSION}"
 
 						slackSend(
 							color: (currentBuild.currentResult == 'SUCCESS') ? 'good' : 'danger',
